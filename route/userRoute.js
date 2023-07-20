@@ -2,8 +2,8 @@ const {getUser,getUserRestrictData,saveUser,resetPassword,passwordUpdate}=requir
 
 const router=require('express').Router();
 
-router.get('/',getUser)
-router.get('/users',getUserRestrictData)
+router.get('/',getUserRestrictData)
+router.get('/users',getUser)
 router.post('/createuser',saveUser)
 router.put('/forgotpassword',resetPassword)
 router.put('/passwordreset/:id',passwordUpdate)
