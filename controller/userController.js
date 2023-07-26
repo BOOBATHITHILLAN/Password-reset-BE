@@ -22,8 +22,7 @@ module.exports.saveUser = async (req, res) => {
 
     const user = await UserModel.findOne({ email })
     if (user) {
-        res.status(404).json({ Message: "Userexist" });
-        return
+        return res.status(404).json({ Message: "Userexist" });
     }
 
 
@@ -31,7 +30,7 @@ module.exports.saveUser = async (req, res) => {
         UserModel.create({ name, email, password })
             .then(data => {
                 console.log("user added Successfully")
-                res.send({ "name": data.name, "id": data._id, "email": data.email })
+                return res.send({ "name": data.name, "id": data._id, "email": data.email })
             })
             .catch(err => {
                 console.error(err);
