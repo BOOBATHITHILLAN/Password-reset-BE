@@ -85,14 +85,14 @@ module.exports.passwordUpdate = async (req, res) => {
     const user = await UserModel.findOne({ resettoken });
 
     if (!user) {
-        res.status(404).json({ Message: "User not found" });
+       return res.status(404).json({ Message: "User not found" });
     }
     user.password = password
     const update = await UserModel.findByIdAndUpdate(user._id, user)
     if (update) {
         user.resettoken = null;
         UserModel.findByIdAndUpdate(user._id, user)
-        res.send({ Message: "Password Updated successfully" })
+       return res.send({ Message: "Password Updated successfully" })
     }
 }
 
