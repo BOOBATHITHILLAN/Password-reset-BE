@@ -1,9 +1,11 @@
 require('dotenv').config()
 const UserModel = require("../models/user");
 const nodemailer = require('nodemailer')
+const jwt=require('jsonwebtoken');
 
 const Email_Id = process.env.Email_Id
 const Email_Pass = process.env.Email_Pass
+const Secret_Key=process.env.Secret_Key
 
 module.exports.getUser = async (req, res) => {
     const user = await UserModel.find();
@@ -114,7 +116,10 @@ module.exports.Signin = async (req, res) => {
     }
 
     // generate and send the JWT token
-    const token = jwt.sign({ userId: user._id }, Secret_Key, { expiresIn: '2h' });
-    return res.status(201).json(token)
+    if(user && password){
+        const token = jwt.sign({ userId: user._id }, Secret_Key, { expiresIn: '2h' });
+        return res.status(201).json(token)
+    }
+    
 
 }
