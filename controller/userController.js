@@ -109,7 +109,7 @@ module.exports.Signin = async (req, res) => {
     }
 
     // compare passwords
-    if (!user.password == password) {
+    if (user.password !== password) {
         return res.status(400).json({ message: 'Authentication failed' });
     }
 
